@@ -13,6 +13,12 @@
 <meta name="apple-mobile-web-app-title" content="中原新生指南">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" href="icon-192.png" type="image/png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="中原大學電資學院智慧運算與大數據學士班・新生入學行事曆">
+<meta property="og:description" content="中原大學智慧運算與大數據學士班大一新生的選課、通識、新生訓練與搬宿時程整理">
+<meta property="og:image" content="https://willy0929716513-debug.github.io/nba-bot-001/icon-512.png">
+<meta property="og:url" content="https://willy0929716513-debug.github.io/nba-bot-001/">
+<meta name="twitter:card" content="summary">
 <style>
   @media (prefers-reduced-motion: reduce) {
     * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
@@ -179,8 +185,41 @@
   .countdown .label { font-size: 0.86rem; opacity: 0.9; }
   .countdown .event-name { font-size: 1.05rem; font-weight: 600; margin-top: 2px; }
 
+  /* ---------- Quick nav ---------- */
+  .quicknav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin: 0 -20px 0;
+    padding: 10px 20px;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .quicknav::-webkit-scrollbar { display: none; }
+  .quicknav a {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 5px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    white-space: nowrap;
+  }
+  .quicknav a:hover { color: var(--ink); border-color: var(--line-strong); }
+
+  .table-scroll { overflow-x: auto; }
+
   /* ---------- Sections ---------- */
-  section { margin-top: 40px; }
+  section { margin-top: 40px; scroll-margin-top: 56px; }
   .section-head {
     display: flex;
     align-items: baseline;
@@ -295,6 +334,28 @@
   .dorm-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 20px; margin-top: 4px; font-size: 0.88rem; }
   .dorm-grid dt { color: var(--muted); font-size: 0.76rem; letter-spacing: 0.02em; }
   .dorm-grid dd { margin: 2px 0 0; font-weight: 600; font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  @media (max-width: 460px) { .dorm-grid { grid-template-columns: 1fr; } }
+
+  .tl-item.is-past { opacity: 0.45; }
+  .toggle-past-btn {
+    display: block;
+    margin: 14px 0 0 26px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .toggle-past-btn:empty { display: none; }
+
+  /* ---------- Upcoming digest ---------- */
+  .upcoming-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 4px; }
+  .upcoming-list li { display: flex; justify-content: space-between; gap: 10px; font-size: 0.82rem; opacity: 0.92; }
+  .upcoming-list time { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; flex-shrink: 0; opacity: 0.85; }
 
   /* ---------- Reminder panel ---------- */
   .reminder-panel {
@@ -371,7 +432,21 @@
       </div>
       <div class="num" id="cd-num">—<span>天</span></div>
     </div>
+    <ul class="upcoming-list" id="upcoming-list"></ul>
   </div>
+
+  <nav class="quicknav" aria-label="快速跳轉">
+    <a href="#timeline-section">時間軸</a>
+    <a href="#course-selection">選課</a>
+    <a href="#gen-ed">通識</a>
+    <a href="#other-rules">英文／體育</a>
+    <a href="#dept-courses">系上課程</a>
+    <a href="#dorm">宿舍</a>
+    <a href="#orientation">新生訓練</a>
+    <a href="#enrollment">繳費</a>
+    <a href="#accounts">帳號</a>
+    <a href="#reminders">提醒</a>
+  </nav>
 
   <section id="timeline-section">
     <div class="section-head">
@@ -379,9 +454,10 @@
       <span class="count">2026.06 – 2027.01</span>
     </div>
     <div class="timeline" id="timeline"></div>
+    <button type="button" id="toggle-past" class="toggle-past-btn"></button>
   </section>
 
-  <section>
+  <section id="course-selection">
     <div class="section-head"><h2>選課全攻略</h2></div>
     <div class="grid-2">
       <div class="card">
@@ -404,7 +480,7 @@
     </div>
     <div class="card" style="margin-top:16px">
       <h3>選課日程表（115 學年度第 1 學期）</h3>
-      <table class="gen-ed">
+      <div class="table-scroll"><table class="gen-ed">
         <thead><tr><th>階段</th><th>對象</th><th class="credits">時間</th></tr></thead>
         <tbody>
           <tr><td>第一階段・新生選課</td><td>大一新生搶系選修 / 早鳥通識</td><td class="credits">9/9 22:00 ~ 9/11 16:00</td></tr>
@@ -413,15 +489,15 @@
           <tr><td>全校加退選</td><td>全校</td><td class="credits">9/18 22:00 ~ 9/21 08:00</td></tr>
           <tr><td>抵免申請</td><td>有學分抵免需求者</td><td class="credits">8/1 ~ 9/16</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <p style="margin:12px 0 0;font-size:0.82rem;color:var(--muted)">抵免的科目在選課期間要自己上網退選，不會自動退。路徑：中原首頁 → I-TOUCH → 使用者登入 → 學業 → 選課資訊 → 抵免申請系統。</p>
     </div>
   </section>
 
-  <section>
+  <section id="gen-ed">
     <div class="section-head"><h2>通識課程規則</h2></div>
     <div class="card">
-      <table class="gen-ed">
+      <div class="table-scroll"><table class="gen-ed">
         <thead>
           <tr><th>學類</th><th>規則</th><th class="credits">需自選？</th></tr>
         </thead>
@@ -432,12 +508,12 @@
           <tr><td>基礎我</td><td>系統自動排入課表</td><td class="credits">不用</td></tr>
           <tr><td>延伸天 / 人 / 物 / 我</td><td>共 12 學分：四學類各至少 2 學分，再任選 2 門補滿</td><td class="credits">要</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <p style="margin:12px 0 0;font-size:0.82rem;color:var(--muted)">學姊建議：大一上先搞定基礎通識就好，等熟悉選課規則後大一下再開始選延伸通識也不遲。每學期延伸通識最多選 2 門，第二階段加退選可以先選先上再加選第二門。</p>
     </div>
   </section>
 
-  <section>
+  <section id="other-rules">
     <div class="section-head"><h2>英文・體育・自由學分</h2></div>
     <div class="grid-2">
       <div class="card">
@@ -459,7 +535,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="dept-courses">
     <div class="section-head"><h2>系上課程參考</h2></div>
     <div class="card">
       <p style="margin:0 0 4px;font-size:0.89rem;color:var(--muted)">依系上修業辦法列出之課程範圍（橫跨四學年，非全部落在大一）：</p>
@@ -485,7 +561,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="dorm">
     <div class="section-head"><h2>宿舍搬遷</h2></div>
     <div class="card">
       <dl class="dorm-grid">
@@ -508,7 +584,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="orientation">
     <div class="section-head"><h2>新生訓練・社團博覽會</h2></div>
     <div class="card">
       <dl class="dorm-grid">
@@ -520,10 +596,10 @@
     </div>
   </section>
 
-  <section>
+  <section id="enrollment">
     <div class="section-head"><h2>入學手續與繳費</h2></div>
     <div class="card">
-      <table class="gen-ed">
+      <div class="table-scroll"><table class="gen-ed">
         <thead><tr><th>事項</th><th class="credits">時間</th></tr></thead>
         <tbody>
           <tr><td>新生一網通（基本資料填寫）</td><td class="credits">及早完成，確認每項狀態顯示「已完成」</td></tr>
@@ -532,27 +608,27 @@
           <tr><td>學生證照片／英文姓名上傳</td><td class="credits">8/16 17:00 前</td></tr>
           <tr><td>健康檢查</td><td class="credits">10/6～10/8，NT$650，維澈樓 2F 宗倬章紀念廳</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <p style="margin:12px 0 0;font-size:0.82rem;color:var(--muted)">有申請住宿的人，繳學費／辦學貸前務必先確認住宿費已登錄，避免金額對不上；暑假打工體檢不能取代新生健檢，項目不同。</p>
     </div>
   </section>
 
-  <section>
+  <section id="accounts">
     <div class="section-head"><h2>學校帳號設定</h2></div>
     <div class="card">
-      <table class="gen-ed">
+      <div class="table-scroll"><table class="gen-ed">
         <thead><tr><th>系統</th><th>帳號</th><th class="credits">用途</th></tr></thead>
         <tbody>
           <tr><td>Mail2000 校信箱</td><td>s + 學號@cycu.edu.tw</td><td class="credits">先到 newpass 頁面設密碼才能登入</td></tr>
           <tr><td>Microsoft（Teams／OneDrive）</td><td>學號@o365st.cycu.edu.tw</td><td class="credits">密碼同 I-TOUCH</td></tr>
           <tr><td>CYCU Myself／I-TOUCH</td><td>學號</td><td class="credits">選課、成績、行政作業的主帳號</td></tr>
         </tbody>
-      </table>
+      </table></div>
       <p style="margin:12px 0 0;font-size:0.82rem;color:var(--muted)">密碼設定原則：需含數字＋英文大小寫，至少 8 碼。身分證欄位陸生／僑生／外籍生請直接填學號。</p>
     </div>
   </section>
 
-  <section>
+  <section id="reminders">
     <div class="section-head"><h2>已安排的提醒</h2></div>
     <div class="reminder-panel">
       <p>這個頁面本身是靜態資訊卡，分頁關閉後不會主動推播。真正會提醒你的，是已經排好回到 Claude 對話的訊息——到了時間會依你的裝置通知設定推播到手機／桌面。</p>
@@ -620,16 +696,20 @@
   var tl = document.getElementById("timeline");
   var now = new Date();
   now.setHours(0,0,0,0);
+  var pastCount = 0;
 
   events.forEach(function (ev) {
     var d = new Date(ev.date + "T00:00:00");
     var diff = Math.round((d - now) / 86400000);
     var status = ev.status;
+    var isPast = diff < 0;
+    if (isPast) pastCount++;
     if (status === "confirmed" && diff >= 0 && diff <= 3) status = "soon";
 
     var item = document.createElement("div");
-    item.className = "tl-item";
+    item.className = "tl-item" + (isPast ? " is-past" : "");
     item.setAttribute("data-status", status);
+    item.style.display = isPast ? "none" : "";
 
     item.innerHTML =
       '<div class="tl-date">' + fmt(d) + '</div>' +
@@ -638,15 +718,36 @@
     tl.appendChild(item);
   });
 
-  var upcoming = events
+  var toggleBtn = document.getElementById("toggle-past");
+  if (pastCount > 0) {
+    var shown = false;
+    toggleBtn.textContent = "顯示已過去的 " + pastCount + " 項";
+    toggleBtn.addEventListener("click", function () {
+      shown = !shown;
+      tl.querySelectorAll(".tl-item.is-past").forEach(function (el) {
+        el.style.display = shown ? "" : "none";
+      });
+      toggleBtn.textContent = shown ? "隱藏已過去的項目" : "顯示已過去的 " + pastCount + " 項";
+    });
+  }
+
+  var upcomingAll = events
     .map(function (ev) { return { ev: ev, d: new Date(ev.date + "T00:00:00") }; })
     .filter(function (x) { return x.d >= now; })
-    .sort(function (a, b) { return a.d - b.d; })[0];
+    .sort(function (a, b) { return a.d - b.d; });
 
-  if (upcoming) {
-    var diff = Math.round((upcoming.d - now) / 86400000);
-    document.getElementById("cd-name").textContent = upcoming.ev.title;
+  if (upcomingAll.length) {
+    var nearest = upcomingAll[0];
+    var diff = Math.round((nearest.d - now) / 86400000);
+    document.getElementById("cd-name").textContent = nearest.ev.title;
     document.getElementById("cd-num").innerHTML = (diff === 0 ? "今天" : diff) + (diff === 0 ? "" : "<span>天</span>");
+
+    var list = document.getElementById("upcoming-list");
+    upcomingAll.slice(1, 4).forEach(function (x) {
+      var li = document.createElement("li");
+      li.innerHTML = '<span>' + x.ev.title + '</span><time>' + fmt(x.d) + '</time>';
+      list.appendChild(li);
+    });
   } else {
     document.getElementById("countdown").style.display = "none";
   }
