@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="中原新生指南">
 <link rel="apple-touch-icon" href="icon-192.png">
-<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="icon" id="dynamic-favicon" href="icon-192.png" type="image/png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="中原大學電資學院智慧運算與大數據學士班・新生入學行事曆">
 <meta property="og:description" content="中原大學智慧運算與大數據學士班大一新生的選課、通識、新生訓練與搬宿時程整理">
@@ -153,17 +153,6 @@
   .hero h1 { font-size: 1.7rem; font-weight: 600; margin-top: 4px; }
   .hero p.sub { margin: 4px 0 0; color: var(--muted); font-size: 0.94rem; }
 
-  .disclaimer {
-    margin-top: 16px;
-    padding: 11px 14px;
-    background: var(--soon-soft);
-    border: 1px solid var(--line);
-    border-left: 3px solid var(--soon);
-    font-size: 0.82rem;
-    color: var(--muted);
-  }
-  .disclaimer strong { color: var(--ink); }
-
   /* ---------- Countdown ---------- */
   .countdown {
     margin-top: 20px;
@@ -183,9 +172,54 @@
     font-weight: 700;
     line-height: 1;
   }
+  .countdown .num.is-text { font-family: inherit; font-size: 1.5rem; }
   .countdown .num span { font-size: 1rem; font-weight: 500; margin-left: 4px; }
   .countdown .label { font-size: 0.86rem; opacity: 0.9; }
   .countdown .event-name { font-size: 1.05rem; font-weight: 600; margin-top: 2px; }
+
+  .upcoming-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 4px; }
+  .upcoming-list li { display: flex; justify-content: space-between; gap: 10px; font-size: 0.82rem; color: var(--muted); }
+  .upcoming-list time { font-variant-numeric: tabular-nums; flex-shrink: 0; }
+
+  /* ---------- Hero actions ---------- */
+  .action-row { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 10px 16px; }
+  .action-btn {
+    padding: 9px 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-ink);
+    background: var(--accent);
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .action-btn:disabled { opacity: 0.55; cursor: default; }
+  .action-btn.is-on { background: var(--confirmed); }
+
+  .action-details { font-size: 0.85rem; }
+  .action-details summary {
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--accent);
+    padding: 9px 2px;
+    list-style: none;
+  }
+  .action-details summary::-webkit-details-marker { display: none; }
+  .action-details summary::before { content: "＋ "; }
+  .action-details[open] summary::before { content: "－ "; }
+  .action-details p { margin: 4px 0 0; color: var(--muted); font-size: 0.82rem; }
+
+  .notify-status { margin: 8px 0 0; font-size: 0.78rem; color: var(--muted); }
+
+  .disclaimer-line {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .disclaimer-line strong { color: var(--ink); }
 
   /* ---------- Quick nav ---------- */
   .quicknav {
@@ -217,8 +251,6 @@
     white-space: nowrap;
   }
   .quicknav a:hover { color: var(--ink); border-color: var(--line-strong); }
-
-  .table-scroll { overflow-x: auto; }
 
   /* ---------- Sections ---------- */
   section { margin-top: 40px; scroll-margin-top: 56px; }
@@ -256,18 +288,16 @@
   }
   .tl-item[data-status="confirmed"]::before { border-color: var(--confirmed); }
   .tl-item[data-status="soon"]::before { border-color: var(--urgent); background: var(--urgent); }
-  .tl-item[data-status="tentative"]::before { border-color: var(--soon); }
+  .tl-item.is-holiday .tl-title { font-weight: 500; color: var(--muted); }
 
   .tl-date {
-    font-family: ui-monospace, "SF Mono", Menlo, monospace;
     font-variant-numeric: tabular-nums;
     font-size: 0.82rem;
     color: var(--muted);
     letter-spacing: 0.01em;
   }
-  .tl-title { font-size: 1rem; font-weight: 600; margin: 3px 0 4px; }
+  .tl-title { font-size: 1rem; font-weight: 600; margin: 3px 0 4px; display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
   .tl-desc { font-size: 0.89rem; color: var(--muted); }
-  .tl-desc a { color: inherit; text-decoration-color: var(--line-strong); }
 
   .badge {
     display: inline-block;
@@ -276,11 +306,29 @@
     letter-spacing: 0.03em;
     padding: 1px 7px;
     border-radius: 3px;
-    margin-left: 6px;
     vertical-align: 1px;
   }
   .badge.confirmed { background: var(--confirmed-soft); color: var(--confirmed); }
-  .badge.tentative { background: var(--soon-soft); color: var(--soon); }
+  .badge.key { background: var(--urgent-soft); color: var(--urgent); }
+  .badge.pick { background: var(--accent-soft); color: var(--accent); }
+  .badge.auto { background: var(--line); color: var(--muted); }
+  .badge.holiday { background: var(--line); color: var(--muted); }
+
+  .tl-item.is-past { opacity: 0.45; }
+  .toggle-past-btn {
+    display: block;
+    margin: 14px 0 0 26px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .toggle-past-btn:empty { display: none; }
 
   /* ---------- Cards / grid ---------- */
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -315,13 +363,16 @@
     flex-shrink: 0;
   }
 
-  table.gen-ed { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-  table.gen-ed th, table.gen-ed td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); }
-  table.gen-ed th { color: var(--muted); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.03em; }
-  table.gen-ed td.credits { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; white-space: nowrap; }
-
   .note-list { margin: 10px 0 0; padding-left: 18px; font-size: 0.85rem; color: var(--muted); }
   .note-list li { margin-bottom: 4px; }
+
+  /* ---------- Field list (replaces prose-in-table) ---------- */
+  .field-list { list-style: none; margin: 0; padding: 0; }
+  .field-list > li { padding: 12px 0; border-top: 1px solid var(--line); }
+  .field-list > li:first-child { padding-top: 0; border-top: none; }
+  .field-title { font-weight: 600; font-size: 0.94rem; display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+  .field-value { margin-top: 3px; font-size: 0.88rem; font-weight: 600; color: var(--accent); }
+  .field-meta { margin-top: 3px; font-size: 0.84rem; color: var(--muted); }
 
   .chip-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
   .chip {
@@ -335,29 +386,8 @@
 
   .dorm-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 20px; margin-top: 4px; font-size: 0.88rem; }
   .dorm-grid dt { color: var(--muted); font-size: 0.76rem; letter-spacing: 0.02em; }
-  .dorm-grid dd { margin: 2px 0 0; font-weight: 600; font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  .dorm-grid dd { margin: 2px 0 0; font-weight: 600; font-variant-numeric: tabular-nums; }
   @media (max-width: 460px) { .dorm-grid { grid-template-columns: 1fr; } }
-
-  .tl-item.is-past { opacity: 0.45; }
-  .toggle-past-btn {
-    display: block;
-    margin: 14px 0 0 26px;
-    padding: 6px 14px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--accent);
-    background: var(--accent-soft);
-    border: none;
-    border-radius: 999px;
-    cursor: pointer;
-    font-family: inherit;
-  }
-  .toggle-past-btn:empty { display: none; }
-
-  /* ---------- Upcoming digest ---------- */
-  .upcoming-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 4px; }
-  .upcoming-list li { display: flex; justify-content: space-between; gap: 10px; font-size: 0.82rem; opacity: 0.92; }
-  .upcoming-list time { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; flex-shrink: 0; opacity: 0.85; }
 
   /* ---------- Reminder panel ---------- */
   .reminder-panel {
@@ -367,34 +397,11 @@
     padding: 18px 20px;
   }
   .reminder-panel p { margin: 0 0 12px; font-size: 0.89rem; color: var(--muted); }
-  .reminder-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-  .reminder-list li {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    font-size: 0.86rem;
-    padding: 6px 0;
-    border-top: 1px solid var(--line);
-  }
-  .reminder-list li:first-child { border-top: none; }
-  .reminder-list time {
-    font-family: ui-monospace, monospace;
-    font-variant-numeric: tabular-nums;
-    color: var(--muted);
-    flex-shrink: 0;
-  }
-
-  /* ---------- Install hint ---------- */
-  .install-hint {
-    margin-top: 16px;
-    padding: 11px 14px;
-    background: var(--accent-soft);
-    border: 1px solid var(--line);
-    border-left: 3px solid var(--accent);
-    font-size: 0.82rem;
-    color: var(--muted);
-  }
-  .install-hint strong { color: var(--ink); }
+  .reminder-list { list-style: none; margin: 0; padding: 0; }
+  .reminder-list li { padding: 8px 0; border-top: 1px solid var(--line); }
+  .reminder-list li:first-child { padding-top: 0; border-top: none; }
+  .reminder-list .r-title { font-size: 0.88rem; font-weight: 500; }
+  .reminder-list time { display: block; margin-top: 2px; font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 
   /* ---------- Footnotes ---------- */
   .sources { margin-top: 44px; padding-top: 16px; border-top: 1px solid var(--line-strong); }
@@ -419,14 +426,6 @@
     <h1>大一新生入學行事曆</h1>
     <p class="sub">115 學年度第一學期・選課、通識、新生訓練與搬宿時程整理</p>
 
-    <div class="disclaimer">
-      <strong>提醒：</strong>本頁日期整理自中原學長姐維護的「中原新生包」（非校方官方頁面），並非教務處逐項公告，仍可能因學校臨時公告而調動，重大決定（繳費、學貸、退宿）請以正式通知為準，連結見頁尾「資料來源」。
-    </div>
-
-    <div class="install-hint">
-      <strong>加到手機主畫面：</strong>iPhone 用 Safari 開啟 → 分享 → 加入主畫面；Android 用 Chrome 開啟 → 選單 → 安裝應用程式／加到主畫面，就會變成一個可以直接點的圖示。
-    </div>
-
     <div class="countdown" id="countdown">
       <div>
         <div class="label">距離下一個重要日子</div>
@@ -435,6 +434,17 @@
       <div class="num" id="cd-num">—<span>天</span></div>
     </div>
     <ul class="upcoming-list" id="upcoming-list"></ul>
+
+    <div class="action-row">
+      <button type="button" id="notify-btn" class="action-btn">開啟通知</button>
+      <details class="action-details">
+        <summary>加到手機主畫面</summary>
+        <p>iPhone 用 Safari 開啟 → 分享 → 加入主畫面；Android 用 Chrome 開啟 → 選單 → 安裝應用程式／加到主畫面，圖示會顯示倒數天數角標。</p>
+      </details>
+    </div>
+    <p class="notify-status" id="notify-status">通知只在你打開這個頁面時觸發，用來提醒當天／隔天的重要期限；建議加到主畫面後偶爾點開看看。</p>
+
+    <p class="disclaimer-line"><strong>提醒：</strong>本頁日期整理自中原學長姐維護的「中原新生包」（非校方官方頁面），並非教務處逐項公告，仍可能因學校臨時公告而調動，重大決定（繳費、學貸、退宿）請以正式通知為準，連結見頁尾「資料來源」。</p>
   </div>
 
   <nav class="quicknav" aria-label="快速跳轉">
@@ -455,6 +465,7 @@
       <h2>重要時間軸</h2>
       <span class="count">2026.06 – 2027.01</span>
     </div>
+    <p style="margin:-6px 0 16px;font-size:0.8rem;color:var(--muted)"><span class="badge key">重要</span> 需要動手處理的期限・<span class="badge holiday">放假</span> 單純放假，不用做任何事</p>
     <div class="timeline" id="timeline"></div>
     <button type="button" id="toggle-past" class="toggle-past-btn"></button>
   </section>
@@ -482,35 +493,58 @@
     </div>
     <div class="card" style="margin-top:16px">
       <h3>選課日程表（115 學年度第 1 學期）</h3>
-      <div class="table-scroll"><table class="gen-ed">
-        <thead><tr><th>階段</th><th>對象</th><th class="credits">時間</th></tr></thead>
-        <tbody>
-          <tr><td>第一階段・新生選課</td><td>大一新生搶系選修 / 早鳥通識</td><td class="credits">9/9 22:00 ~ 9/11 16:00</td></tr>
-          <tr><td>第二階段・一般 / 教育學程</td><td>全校</td><td class="credits">9/14 ~ 9/16，每日 22:00–隔日 8:00</td></tr>
-          <tr><td>第二階段・通識 / 體育 / 軍訓</td><td>全校</td><td class="credits">9/16 ~ 9/18，每日 22:00–隔日 8:00</td></tr>
-          <tr><td>全校加退選</td><td>全校</td><td class="credits">9/18 22:00 ~ 9/21 08:00</td></tr>
-          <tr><td>抵免申請</td><td>有學分抵免需求者</td><td class="credits">8/1 ~ 9/16</td></tr>
-        </tbody>
-      </table></div>
-      <p style="margin:12px 0 0;font-size:0.82rem;color:var(--muted)">抵免的科目在選課期間要自己上網退選，不會自動退。路徑：中原首頁 → I-TOUCH → 使用者登入 → 學業 → 選課資訊 → 抵免申請系統。</p>
+      <ul class="field-list">
+        <li>
+          <div class="field-title">第一階段・新生選課 <span class="badge key">重要</span></div>
+          <div class="field-value">9/9 22:00 ~ 9/11 16:00</div>
+          <div class="field-meta">大一新生搶系選修 / 早鳥通識</div>
+        </li>
+        <li>
+          <div class="field-title">第二階段・一般 / 教育學程</div>
+          <div class="field-value">9/14 ~ 9/16，每日 22:00–隔日 8:00</div>
+          <div class="field-meta">全校適用</div>
+        </li>
+        <li>
+          <div class="field-title">第二階段・通識 / 體育 / 軍訓</div>
+          <div class="field-value">9/16 ~ 9/18，每日 22:00–隔日 8:00</div>
+          <div class="field-meta">全校適用</div>
+        </li>
+        <li>
+          <div class="field-title">全校加退選</div>
+          <div class="field-value">9/18 22:00 ~ 9/21 08:00</div>
+        </li>
+        <li>
+          <div class="field-title">抵免申請</div>
+          <div class="field-value">8/1 ~ 9/16</div>
+          <div class="field-meta">已核准抵免的科目要自己上網退選，不會自動退。路徑：中原首頁 → I-TOUCH → 使用者登入 → 學業 → 選課資訊 → 抵免申請系統。</div>
+        </li>
+      </ul>
     </div>
   </section>
 
   <section id="gen-ed">
     <div class="section-head"><h2>通識課程規則</h2></div>
     <div class="card">
-      <div class="table-scroll"><table class="gen-ed">
-        <thead>
-          <tr><th>學類</th><th>規則</th><th class="credits">需自選？</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>基礎天</td><td>「宗教哲學」／「人生哲學」擇一，通常要搶</td><td class="credits">要</td></tr>
-          <tr><td>基礎人</td><td>歷史類（區域文明史／文化思想史擇一）+ 公民類（六選一）</td><td class="credits">要</td></tr>
-          <tr><td>基礎物</td><td>系統自動排入課表</td><td class="credits">不用</td></tr>
-          <tr><td>基礎我</td><td>系統自動排入課表</td><td class="credits">不用</td></tr>
-          <tr><td>延伸天 / 人 / 物 / 我</td><td>共 12 學分：四學類各至少 2 學分，再任選 2 門補滿</td><td class="credits">要</td></tr>
-        </tbody>
-      </table></div>
+      <ul class="field-list">
+        <li>
+          <div class="field-title">基礎天 <span class="badge pick">要自選</span></div>
+          <div class="field-meta">「宗教哲學」／「人生哲學」擇一，通常要搶</div>
+        </li>
+        <li>
+          <div class="field-title">基礎人 <span class="badge pick">要自選</span></div>
+          <div class="field-meta">歷史類（區域文明史／文化思想史擇一）＋ 公民類（六選一）</div>
+        </li>
+        <li>
+          <div class="field-title">基礎物 <span class="badge auto">自動排課</span></div>
+        </li>
+        <li>
+          <div class="field-title">基礎我 <span class="badge auto">自動排課</span></div>
+        </li>
+        <li>
+          <div class="field-title">延伸天／人／物／我 <span class="badge pick">要自選</span></div>
+          <div class="field-meta">共 12 學分：四學類各至少 2 學分，再任選 2 門補滿</div>
+        </li>
+      </ul>
       <p style="margin:12px 0 0;font-size:0.82rem;color:var(--muted)">學姊建議：大一上先搞定基礎通識就好，等熟悉選課規則後大一下再開始選延伸通識也不遲。每學期延伸通識最多選 2 門，第二階段加退選可以先選先上再加選第二門。</p>
     </div>
   </section>
@@ -576,7 +610,7 @@
       </dl>
       <p style="margin:14px 0 4px;font-size:0.85rem;color:var(--ink)"><strong>注意：</strong>女生只能選擇「住／不住」，不能自選恩慈或良善，且 8/21 前公布的宿舍棟別都可能還會異動——建議先別繳住宿費、別辦學貸，等 8/21 之後確認完再處理。台中以北同學建議上午報到、以南同學建議下午報到，避開撞車人潮。</p>
       <p style="margin:10px 0 0;font-size:0.82rem;color:var(--muted)">搬宿流程：車窗放搬宿通行證 → 依指示開往宿舍 → 停妥後學長姐幫忙搬行李 → 本人辦入住手續、領學生證 → 整理房間。指定日期會有系學會學長姐現場協助，沒在當天搬則要自己來。</p>
-      <p style="margin:14px 0 4px;font-size:0.82rem;color:var(--muted)">宿舍服務電話：</p>
+      <p style="margin:14px 0 4px;font-size:0.82rem;color:var(--muted)">宿舍：</p>
       <div class="chip-row">
         <span class="chip">力行宿舍</span>
         <span class="chip">恩慈女宿</span>
@@ -601,16 +635,31 @@
   <section id="enrollment">
     <div class="section-head"><h2>入學手續與繳費</h2></div>
     <div class="card">
-      <div class="table-scroll"><table class="gen-ed">
-        <thead><tr><th>事項</th><th class="credits">時間</th></tr></thead>
-        <tbody>
-          <tr><td>新生一網通（基本資料填寫）</td><td class="credits">及早完成，確認每項狀態顯示「已完成」</td></tr>
-          <tr><td>學雜費繳費單下載＋繳費</td><td class="credits">115/8/1～8/31（第一梯宿舍者 8/1 起；第二梯 8/21 15:00 起）</td></tr>
-          <tr><td>就學貸款申請</td><td class="credits">8/3～9/9（第一次辦須臨櫃對保，先去銀行別只在線上填）</td></tr>
-          <tr><td>學生證照片／英文姓名上傳</td><td class="credits">8/16 17:00 前</td></tr>
-          <tr><td>健康檢查</td><td class="credits">10/6～10/8，NT$650，維澈樓 2F 宗倬章紀念廳</td></tr>
-        </tbody>
-      </table></div>
+      <ul class="field-list">
+        <li>
+          <div class="field-title">新生一網通（基本資料填寫）</div>
+          <div class="field-meta">及早完成，確認每項狀態顯示「已完成」</div>
+        </li>
+        <li>
+          <div class="field-title">學雜費繳費單下載＋繳費 <span class="badge key">重要</span></div>
+          <div class="field-value">115/8/1～8/31</div>
+          <div class="field-meta">第一梯宿舍者 8/1 起；第二梯 8/21 15:00 起下載</div>
+        </li>
+        <li>
+          <div class="field-title">就學貸款申請</div>
+          <div class="field-value">8/3～9/9</div>
+          <div class="field-meta">第一次辦須臨櫃對保，先去銀行別只在線上填</div>
+        </li>
+        <li>
+          <div class="field-title">學生證照片／英文姓名上傳 <span class="badge key">重要</span></div>
+          <div class="field-value">8/16 17:00 前</div>
+        </li>
+        <li>
+          <div class="field-title">健康檢查</div>
+          <div class="field-value">10/6～10/8</div>
+          <div class="field-meta">NT$650，維澈樓 2F 宗倬章紀念廳</div>
+        </li>
+      </ul>
       <p style="margin:12px 0 0;font-size:0.82rem;color:var(--muted)">有申請住宿的人，繳學費／辦學貸前務必先確認住宿費已登錄，避免金額對不上；暑假打工體檢不能取代新生健檢，項目不同。</p>
     </div>
   </section>
@@ -618,14 +667,23 @@
   <section id="accounts">
     <div class="section-head"><h2>學校帳號設定</h2></div>
     <div class="card">
-      <div class="table-scroll"><table class="gen-ed">
-        <thead><tr><th>系統</th><th>帳號</th><th class="credits">用途</th></tr></thead>
-        <tbody>
-          <tr><td>Mail2000 校信箱</td><td>s + 學號@cycu.edu.tw</td><td class="credits">先到 newpass 頁面設密碼才能登入</td></tr>
-          <tr><td>Microsoft（Teams／OneDrive）</td><td>學號@o365st.cycu.edu.tw</td><td class="credits">密碼同 I-TOUCH</td></tr>
-          <tr><td>CYCU Myself／I-TOUCH</td><td>學號</td><td class="credits">選課、成績、行政作業的主帳號</td></tr>
-        </tbody>
-      </table></div>
+      <ul class="field-list">
+        <li>
+          <div class="field-title">Mail2000 校信箱</div>
+          <div class="field-value">s + 學號@cycu.edu.tw</div>
+          <div class="field-meta">先到 newpass 頁面設密碼才能登入</div>
+        </li>
+        <li>
+          <div class="field-title">Microsoft（Teams／OneDrive）</div>
+          <div class="field-value">學號@o365st.cycu.edu.tw</div>
+          <div class="field-meta">密碼同 I-TOUCH</div>
+        </li>
+        <li>
+          <div class="field-title">CYCU Myself／I-TOUCH</div>
+          <div class="field-value">學號</div>
+          <div class="field-meta">選課、成績、行政作業的主帳號</div>
+        </li>
+      </ul>
       <p style="margin:12px 0 0;font-size:0.82rem;color:var(--muted)">密碼設定原則：需含數字＋英文大小寫，至少 8 碼。身分證欄位陸生／僑生／外籍生請直接填學號。</p>
     </div>
   </section>
@@ -633,16 +691,16 @@
   <section id="reminders">
     <div class="section-head"><h2>已安排的提醒</h2></div>
     <div class="reminder-panel">
-      <p>這個頁面本身是靜態資訊卡，分頁關閉後不會主動推播。真正會提醒你的，是已經排好回到 Claude 對話的訊息——到了時間會依你的裝置通知設定推播到手機／桌面。</p>
+      <p>下面這批是排在 Claude 對話裡的訊息，跟頁面開不開沒關係，到了時間會依你的裝置通知設定推播到手機／桌面——這是目前唯一真正「背景」運作的提醒管道。上面的「開啟通知」按鈕則是頁面版本，只在你打開頁面當下觸發，兩者互補使用。</p>
       <ul class="reminder-list">
-        <li><span>宿舍保證金明天截止</span><time>7/25（六）09:00</time></li>
-        <li><span>學雜費／抵免開始受理，第二批宿舍即將開放</span><time>8/1（六）09:00</time></li>
-        <li><span>明天前要上傳學生證照片</span><time>8/15（六）09:00</time></li>
-        <li><span>第二批宿舍申請明天截止</span><time>8/18（二）09:00</time></li>
-        <li><span>搬宿舍＋新生訓練即將展開</span><time>9/4（五）18:00</time></li>
-        <li><span>今晚 10 點新生選課開打</span><time>9/9（三）21:00</time></li>
-        <li><span>明天開學＋第二階段選課開跑</span><time>9/13（日）18:00</time></li>
-        <li><span>今晚起選通識／體育／軍訓課</span><time>9/16（三）09:00</time></li>
+        <li><span class="r-title">宿舍保證金明天截止</span><time>7/25（六）09:00</time></li>
+        <li><span class="r-title">學雜費／抵免開始受理，第二批宿舍即將開放</span><time>8/1（六）09:00</time></li>
+        <li><span class="r-title">明天前要上傳學生證照片</span><time>8/15（六）09:00</time></li>
+        <li><span class="r-title">第二批宿舍申請明天截止</span><time>8/18（二）09:00</time></li>
+        <li><span class="r-title">搬宿舍＋新生訓練即將展開</span><time>9/4（五）18:00</time></li>
+        <li><span class="r-title">今晚 10 點新生選課開打</span><time>9/9（三）21:00</time></li>
+        <li><span class="r-title">明天開學＋第二階段選課開跑</span><time>9/13（日）18:00</time></li>
+        <li><span class="r-title">今晚起選通識／體育／軍訓課</span><time>9/16（三）09:00</time></li>
       </ul>
     </div>
   </section>
@@ -665,29 +723,29 @@
 <script>
 (function () {
   var events = [
-    { date: "2026-07-15", title: "第一梯宿舍保證金繳費截止（7/15起）", desc: "繳費區間 7/15～7/26。", status: "confirmed" },
-    { date: "2026-08-01", title: "學雜費開始繳費＋抵免申請開始", desc: "第一梯宿舍者今天起可下載繳費單，繳費期限到 8/31；抵免申請 8/1～9/16。", status: "confirmed" },
-    { date: "2026-08-03", title: "第二批宿舍申請開始", desc: "申請區間 8/3～8/19；就學貸款申請也從今天開始，到 9/9。", status: "confirmed" },
-    { date: "2026-08-16", title: "學生證照片／英文姓名上傳截止", desc: "17:00 前完成，入住時才能領到學生證。", status: "confirmed" },
-    { date: "2026-08-19", title: "第二批宿舍申請截止", desc: "", status: "confirmed" },
-    { date: "2026-08-21", title: "宿舍棟別確認（女生）", desc: "15:00 起可下載第二梯繳費單；女生宿舍在此之前公布的棟別都可能異動，建議先確認再繳費。", status: "confirmed" },
-    { date: "2026-09-06", title: "電資學院新生宿舍入住＋領學生證", desc: "上午 9 點～下午 5 點，限 8/16 17:00 前完成申請者當天領證。", status: "confirmed" },
-    { date: "2026-09-07", title: "新生訓練＋社團博覽會", desc: "9/7～9/9，中原第一場大型新生活動。", status: "confirmed" },
-    { date: "2026-09-09", title: "新生選課（第一階段）", desc: "9/9 22:00～9/11 16:00，先加入追蹤清單，時間到刷新頁面搶課。", status: "confirmed" },
-    { date: "2026-09-14", title: "開學＋第二階段選課（一般／教育學程）", desc: "選課時間 9/14～9/16，每日 22:00–隔日 8:00。", status: "confirmed" },
-    { date: "2026-09-16", title: "第二階段選課（通識／體育／軍訓）", desc: "9/16～9/18，每日 22:00–隔日 8:00。", status: "confirmed" },
-    { date: "2026-09-18", title: "全校加退選", desc: "9/18 22:00～9/21 08:00，選課至此全部結束。", status: "confirmed" },
-    { date: "2026-09-25", title: "放假（中秋節）", desc: "", status: "confirmed" },
-    { date: "2026-09-28", title: "放假（教師節）", desc: "", status: "confirmed" },
-    { date: "2026-10-06", title: "新生健康檢查", desc: "10/6～10/8，NT$650，維澈樓 2F 宗倬章紀念廳。", status: "confirmed" },
-    { date: "2026-10-09", title: "放假（國慶日補假）", desc: "", status: "confirmed" },
-    { date: "2026-10-26", title: "放假（台灣光復暨金門古寧頭大捷紀念日補假）", desc: "", status: "confirmed" },
-    { date: "2026-11-09", title: "期中考週", desc: "11/9～11/13。", status: "confirmed" },
-    { date: "2026-12-24", title: "放假（運動會補假）", desc: "", status: "confirmed" },
-    { date: "2026-12-25", title: "放假（行憲紀念日）", desc: "", status: "confirmed" },
-    { date: "2027-01-01", title: "放假（元旦）", desc: "", status: "confirmed" },
-    { date: "2027-01-11", title: "期末考週", desc: "1/11～1/15。", status: "confirmed" },
-    { date: "2027-01-17", title: "關宿", desc: "第一學期宿舍關閉日。", status: "confirmed" }
+    { date: "2026-07-15", title: "第一梯宿舍保證金繳費截止（7/15起）", desc: "繳費區間 7/15～7/26。" },
+    { date: "2026-08-01", title: "學雜費開始繳費＋抵免申請開始", desc: "第一梯宿舍者今天起可下載繳費單，繳費期限到 8/31；抵免申請 8/1～9/16。", key: true },
+    { date: "2026-08-03", title: "第二批宿舍申請開始", desc: "申請區間 8/3～8/19；就學貸款申請也從今天開始，到 9/9。" },
+    { date: "2026-08-16", title: "學生證照片／英文姓名上傳截止", desc: "17:00 前完成，入住時才能領到學生證。", key: true },
+    { date: "2026-08-19", title: "第二批宿舍申請截止", desc: "", key: true },
+    { date: "2026-08-21", title: "宿舍棟別確認（女生）", desc: "15:00 起可下載第二梯繳費單；女生宿舍在此之前公布的棟別都可能異動，建議先確認再繳費。", key: true },
+    { date: "2026-09-06", title: "電資學院新生宿舍入住＋領學生證", desc: "上午 9 點～下午 5 點，限 8/16 17:00 前完成申請者當天領證。", key: true },
+    { date: "2026-09-07", title: "新生訓練＋社團博覽會", desc: "9/7～9/9，中原第一場大型新生活動。", key: true },
+    { date: "2026-09-09", title: "新生選課（第一階段）", desc: "9/9 22:00～9/11 16:00，先加入追蹤清單，時間到刷新頁面搶課。", key: true },
+    { date: "2026-09-14", title: "開學＋第二階段選課（一般／教育學程）", desc: "選課時間 9/14～9/16，每日 22:00–隔日 8:00。", key: true },
+    { date: "2026-09-16", title: "第二階段選課（通識／體育／軍訓）", desc: "9/16～9/18，每日 22:00–隔日 8:00。", key: true },
+    { date: "2026-09-18", title: "全校加退選", desc: "9/18 22:00～9/21 08:00，選課至此全部結束。", key: true },
+    { date: "2026-09-25", title: "放假（中秋節）", desc: "", holiday: true },
+    { date: "2026-09-28", title: "放假（教師節）", desc: "", holiday: true },
+    { date: "2026-10-06", title: "新生健康檢查", desc: "10/6～10/8，NT$650，維澈樓 2F 宗倬章紀念廳。", key: true },
+    { date: "2026-10-09", title: "放假（國慶日補假）", desc: "", holiday: true },
+    { date: "2026-10-26", title: "放假（台灣光復暨金門古寧頭大捷紀念日補假）", desc: "", holiday: true },
+    { date: "2026-11-09", title: "期中考週", desc: "11/9～11/13。", key: true },
+    { date: "2026-12-24", title: "放假（運動會補假）", desc: "", holiday: true },
+    { date: "2026-12-25", title: "放假（行憲紀念日）", desc: "", holiday: true },
+    { date: "2027-01-01", title: "放假（元旦）", desc: "", holiday: true },
+    { date: "2027-01-11", title: "期末考週", desc: "1/11～1/15。", key: true },
+    { date: "2027-01-17", title: "關宿", desc: "第一學期宿舍關閉日。" }
   ];
 
   function fmt(d) {
@@ -695,28 +753,72 @@
     return (d.getMonth() + 1) + "/" + d.getDate() + "（" + days[d.getDay()] + "）";
   }
 
+  function fireNotification(title, body) {
+    if (!("Notification" in window) || Notification.permission !== "granted") return;
+    if (navigator.serviceWorker && navigator.serviceWorker.ready) {
+      navigator.serviceWorker.ready.then(function (reg) {
+        reg.showNotification(title, { body: body, icon: "icon-192.png", badge: "icon-192.png" });
+      }).catch(function () {
+        try { new Notification(title, { body: body, icon: "icon-192.png" }); } catch (e) {}
+      });
+    } else {
+      try { new Notification(title, { body: body, icon: "icon-192.png" }); } catch (e) {}
+    }
+  }
+
+  function updateFavicon(n) {
+    try {
+      var c = document.createElement("canvas");
+      c.width = 64; c.height = 64;
+      var ctx = c.getContext("2d");
+      ctx.fillStyle = "#33417d";
+      if (ctx.roundRect) { ctx.beginPath(); ctx.roundRect(0, 0, 64, 64, 14); ctx.fill(); }
+      else { ctx.fillRect(0, 0, 64, 64); }
+      ctx.fillStyle = "#ffffff";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      var label = n <= 0 ? "!" : String(n);
+      ctx.font = "bold " + (label.length > 2 ? 24 : 32) + "px -apple-system, sans-serif";
+      ctx.fillText(label, 32, 35);
+      var link = document.getElementById("dynamic-favicon");
+      if (link) link.href = c.toDataURL("image/png");
+    } catch (e) {}
+  }
+
+  function updateAppBadge(n) {
+    if ("setAppBadge" in navigator) {
+      navigator.setAppBadge(n > 0 ? n : 0).catch(function () {});
+    }
+  }
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js").catch(function () {});
+  }
+
   var tl = document.getElementById("timeline");
   var now = new Date();
-  now.setHours(0,0,0,0);
+  now.setHours(0, 0, 0, 0);
   var pastCount = 0;
 
   events.forEach(function (ev) {
     var d = new Date(ev.date + "T00:00:00");
     var diff = Math.round((d - now) / 86400000);
-    var status = ev.status;
     var isPast = diff < 0;
     if (isPast) pastCount++;
-    if (status === "confirmed" && diff >= 0 && diff <= 3) status = "soon";
+    var status = "confirmed";
+    if (!isPast && diff <= 3) status = "soon";
 
     var item = document.createElement("div");
-    item.className = "tl-item" + (isPast ? " is-past" : "");
+    item.className = "tl-item" + (isPast ? " is-past" : "") + (ev.holiday ? " is-holiday" : "");
     item.setAttribute("data-status", status);
     item.style.display = isPast ? "none" : "";
 
+    var badge = ev.holiday ? '<span class="badge holiday">放假</span>' : (ev.key ? '<span class="badge key">重要</span>' : "");
+
     item.innerHTML =
-      '<div class="tl-date">' + fmt(d) + '</div>' +
-      '<div class="tl-title">' + ev.title + '</div>' +
-      (ev.desc ? '<div class="tl-desc">' + ev.desc + '</div>' : '');
+      '<div class="tl-date">' + fmt(d) + "</div>" +
+      '<div class="tl-title">' + ev.title + badge + "</div>" +
+      (ev.desc ? '<div class="tl-desc">' + ev.desc + "</div>" : "");
     tl.appendChild(item);
   });
 
@@ -738,21 +840,84 @@
     .filter(function (x) { return x.d >= now; })
     .sort(function (a, b) { return a.d - b.d; });
 
+  var nearestDiff = null;
+
   if (upcomingAll.length) {
     var nearest = upcomingAll[0];
-    var diff = Math.round((nearest.d - now) / 86400000);
+    nearestDiff = Math.round((nearest.d - now) / 86400000);
+    var numEl = document.getElementById("cd-num");
     document.getElementById("cd-name").textContent = nearest.ev.title;
-    document.getElementById("cd-num").innerHTML = (diff === 0 ? "今天" : diff) + (diff === 0 ? "" : "<span>天</span>");
+    if (nearestDiff === 0) {
+      numEl.classList.add("is-text");
+      numEl.textContent = "就是今天！";
+    } else {
+      numEl.classList.remove("is-text");
+      numEl.innerHTML = nearestDiff + "<span>天</span>";
+    }
 
     var list = document.getElementById("upcoming-list");
     upcomingAll.slice(1, 4).forEach(function (x) {
       var li = document.createElement("li");
-      li.innerHTML = '<span>' + x.ev.title + '</span><time>' + fmt(x.d) + '</time>';
+      li.innerHTML = "<span>" + x.ev.title + "</span><time>" + fmt(x.d) + "</time>";
       list.appendChild(li);
     });
   } else {
     document.getElementById("countdown").style.display = "none";
   }
+
+  updateFavicon(nearestDiff);
+  updateAppBadge(nearestDiff);
+
+  function checkDueNotifications() {
+    if (!("Notification" in window) || Notification.permission !== "granted") return;
+    var todayStamp = now.toISOString().slice(0, 10);
+    upcomingAll.forEach(function (x) {
+      var diff = Math.round((x.d - now) / 86400000);
+      if (diff === 0 || diff === 1) {
+        var flagKey = "notified-" + x.ev.date + "-" + diff;
+        if (localStorage.getItem(flagKey) !== todayStamp) {
+          fireNotification("中原新生指南", (diff === 0 ? "今天：" : "明天：") + x.ev.title);
+          localStorage.setItem(flagKey, todayStamp);
+        }
+      }
+    });
+  }
+
+  var notifyBtn = document.getElementById("notify-btn");
+  var notifyStatus = document.getElementById("notify-status");
+
+  function paintNotifyBtn() {
+    if (!("Notification" in window)) {
+      notifyBtn.disabled = true;
+      notifyBtn.textContent = "此瀏覽器不支援通知";
+      return;
+    }
+    if (Notification.permission === "granted") {
+      notifyBtn.textContent = "通知已開啟";
+      notifyBtn.classList.add("is-on");
+      notifyBtn.disabled = true;
+      notifyStatus.textContent = "通知已開啟，打開頁面時如果當天／隔天有重要期限會提醒你。";
+      checkDueNotifications();
+    } else if (Notification.permission === "denied") {
+      notifyBtn.textContent = "通知已被封鎖";
+      notifyBtn.disabled = true;
+      notifyStatus.textContent = "瀏覽器封鎖了通知權限，如需開啟請到瀏覽器或系統設定裡手動允許。";
+    }
+  }
+  paintNotifyBtn();
+
+  notifyBtn.addEventListener("click", function () {
+    Notification.requestPermission().then(function () {
+      paintNotifyBtn();
+      if (Notification.permission === "granted") {
+        fireNotification("中原新生指南", "通知已開啟，之後打開頁面會提醒你近期的重要日期。");
+      }
+    });
+  });
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible") checkDueNotifications();
+  });
 })();
 </script>
 </body>
