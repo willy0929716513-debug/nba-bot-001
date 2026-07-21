@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>中原大學電資學院智慧運算與大數據學士班・新生入學行事曆</title>
+<meta name="description" content="中原大學智慧運算與大數據學士班大一新生的選課、通識、新生訓練與搬宿時程整理">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#33417d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="中原新生指南">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png" type="image/png">
+<style>
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  :root {
+    --paper: #eef0f0;
+    --surface: #ffffff;
+    --ink: #1f232c;
+    --muted: #5c6270;
+    --line: rgba(31, 35, 44, 0.14);
+    --line-strong: rgba(31, 35, 44, 0.26);
+    --accent: #33417d;
+    --accent-ink: #f4f5fb;
+    --accent-soft: rgba(51, 65, 125, 0.09);
+    --urgent: #a83f28;
+    --urgent-soft: rgba(168, 63, 40, 0.1);
+    --soon: #97671c;
+    --soon-soft: rgba(151, 103, 28, 0.12);
+    --confirmed: #2f6b4f;
+    --confirmed-soft: rgba(47, 107, 79, 0.11);
+    --shadow: 0 1px 2px rgba(20, 22, 30, 0.06), 0 8px 24px rgba(20, 22, 30, 0.05);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #14161c;
+      --surface: #1b1e26;
+      --ink: #e8e9ee;
+      --muted: #9aa0b0;
+      --line: rgba(232, 233, 238, 0.13);
+      --line-strong: rgba(232, 233, 238, 0.24);
+      --accent: #93a3ec;
+      --accent-ink: #14161c;
+      --accent-soft: rgba(147, 163, 236, 0.13);
+      --urgent: #e08066;
+      --urgent-soft: rgba(224, 128, 102, 0.14);
+      --soon: #dcac57;
+      --soon-soft: rgba(220, 172, 87, 0.14);
+      --confirmed: #6fbf95;
+      --confirmed-soft: rgba(111, 191, 149, 0.13);
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #14161c;
+    --surface: #1b1e26;
+    --ink: #e8e9ee;
+    --muted: #9aa0b0;
+    --line: rgba(232, 233, 238, 0.13);
+    --line-strong: rgba(232, 233, 238, 0.24);
+    --accent: #93a3ec;
+    --accent-ink: #14161c;
+    --accent-soft: rgba(147, 163, 236, 0.13);
+    --urgent: #e08066;
+    --urgent-soft: rgba(224, 128, 102, 0.14);
+    --soon: #dcac57;
+    --soon-soft: rgba(220, 172, 87, 0.14);
+    --confirmed: #6fbf95;
+    --confirmed-soft: rgba(111, 191, 149, 0.13);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  :root[data-theme="light"] {
+    --paper: #eef0f0;
+    --surface: #ffffff;
+    --ink: #1f232c;
+    --muted: #5c6270;
+    --line: rgba(31, 35, 44, 0.14);
+    --line-strong: rgba(31, 35, 44, 0.26);
+    --accent: #33417d;
+    --accent-ink: #f4f5fb;
+    --accent-soft: rgba(51, 65, 125, 0.09);
+    --urgent: #a83f28;
+    --urgent-soft: rgba(168, 63, 40, 0.1);
+    --soon: #97671c;
+    --soon-soft: rgba(151, 103, 28, 0.12);
+    --confirmed: #2f6b4f;
+    --confirmed-soft: rgba(47, 107, 79, 0.11);
+    --shadow: 0 1px 2px rgba(20, 22, 30, 0.06), 0 8px 24px rgba(20, 22, 30, 0.05);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", "Segoe UI", "Noto Sans TC", sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 28px 20px 80px;
+  }
+
+  h1, h2, h3 {
+    font-family: "Noto Serif TC", "Iowan Old Style", "Songti TC", "PMingLiU", serif;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  a { color: var(--accent); }
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line-strong);
+    margin-bottom: 24px;
+  }
+  .hero h1 { font-size: 1.7rem; font-weight: 600; margin-top: 4px; }
+  .hero p.sub { margin: 4px 0 0; color: var(--muted); font-size: 0.94rem; }
+
+  .disclaimer {
+    margin-top: 16px;
+    padding: 11px 14px;
+    background: var(--soon-soft);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--soon);
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+  .disclaimer strong { color: var(--ink); }
+
+  /* ---------- Countdown ---------- */
+  .countdown {
+    margin-top: 20px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    padding: 20px 22px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .countdown .num {
+    font-family: "SF Mono", "Menlo", "Consolas", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .countdown .num span { font-size: 1rem; font-weight: 500; margin-left: 4px; }
+  .countdown .label { font-size: 0.86rem; opacity: 0.9; }
+  .countdown .event-name { font-size: 1.05rem; font-weight: 600; margin-top: 2px; }
+
+  /* ---------- Sections ---------- */
+  section { margin-top: 40px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 8px;
+    margin-bottom: 18px;
+  }
+  .section-head h2 { font-size: 1.22rem; font-weight: 600; }
+  .section-head .count { font-size: 0.78rem; color: var(--muted); font-family: ui-monospace, monospace; }
+
+  /* ---------- Timeline ---------- */
+  .timeline { position: relative; padding-left: 26px; }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 5px; top: 6px; bottom: 6px;
+    width: 1px;
+    background: var(--line-strong);
+  }
+  .tl-item { position: relative; padding-bottom: 22px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -26px; top: 4px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--muted);
+  }
+  .tl-item[data-status="confirmed"]::before { border-color: var(--confirmed); }
+  .tl-item[data-status="soon"]::before { border-color: var(--urgent); background: var(--urgent); }
+  .tl-item[data-status="tentative"]::before { border-color: var(--soon); }
+
+  .tl-date {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.82rem;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+  }
+  .tl-title { font-size: 1rem; font-weight: 600; margin: 3px 0 4px; }
+  .tl-desc { font-size: 0.89rem; color: var(--muted); }
+  .tl-desc a { color: inherit; text-decoration-color: var(--line-strong); }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 1px 7px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: 1px;
+  }
+  .badge.confirmed { background: var(--confirmed-soft); color: var(--confirmed); }
+  .badge.tentative { background: var(--soon-soft); color: var(--soon); }
+
+  /* ---------- Cards / grid ---------- */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 620px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 18px 20px;
+  }
+  .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 10px; }
+
+  .steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+  .steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 10px;
+    padding: 7px 0;
+    border-top: 1px solid var(--line);
+    font-size: 0.9rem;
+  }
+  .steps li:first-child { border-top: none; }
+  .steps li::before {
+    content: counter(step);
+    font-family: ui-monospace, monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  table.gen-ed { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  table.gen-ed th, table.gen-ed td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); }
+  table.gen-ed th { color: var(--muted); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.03em; }
+  table.gen-ed td.credits { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .note-list { margin: 10px 0 0; padding-left: 18px; font-size: 0.85rem; color: var(--muted); }
+  .note-list li { margin-bottom: 4px; }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+  .chip {
+    font-size: 0.82rem;
+    padding: 4px 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 3px;
+    font-weight: 500;
+  }
+
+  .dorm-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 20px; margin-top: 4px; font-size: 0.88rem; }
+  .dorm-grid dt { color: var(--muted); font-size: 0.76rem; letter-spacing: 0.02em; }
+  .dorm-grid dd { margin: 2px 0 0; font-weight: 600; font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  /* ---------- Reminder panel ---------- */
+  .reminder-panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    padding: 18px 20px;
+  }
+  .reminder-panel p { margin: 0 0 12px; font-size: 0.89rem; color: var(--muted); }
+  .reminder-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .reminder-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 0.86rem;
+    padding: 6px 0;
+    border-top: 1px solid var(--line);
+  }
+  .reminder-list li:first-child { border-top: none; }
+  .reminder-list time {
+    font-family: ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+
+  /* ---------- Install hint ---------- */
+  .install-hint {
+    margin-top: 16px;
+    padding: 11px 14px;
+    background: var(--accent-soft);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+  .install-hint strong { color: var(--ink); }
+
+  /* ---------- Footnotes ---------- */
+  .sources { margin-top: 44px; padding-top: 16px; border-top: 1px solid var(--line-strong); }
+  .sources h2 { font-size: 0.86rem; color: var(--muted); font-family: inherit; letter-spacing: 0.03em; margin-bottom: 10px; }
+  .sources ol { margin: 0; padding-left: 20px; font-size: 0.78rem; color: var(--muted); }
+  .sources li { margin-bottom: 5px; }
+  .sources a { word-break: break-all; }
+
+  footer.tag {
+    margin-top: 30px;
+    font-size: 0.76rem;
+    color: var(--muted);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="hero">
+    <div class="eyebrow">中原大學 電機資訊學院 · 智慧運算與大數據學士班</div>
+    <h1>大一新生入學行事曆</h1>
+    <p class="sub">115 學年度第一學期・選課、通識、新生訓練與搬宿時程整理</p>
+
+    <div class="disclaimer">
+      <strong>提醒：</strong>本頁時程整理自 2026 年 7 月的公開網路資料，部分日期（標示 <span class="badge tentative">待確認</span>）尚未能核對到單一官方頁面的完整內容，正式時間請以中原大學教務處／學生事務處公告為準，連結見頁尾「資料來源」。
+    </div>
+
+    <div class="install-hint">
+      <strong>加到手機主畫面：</strong>iPhone 用 Safari 開啟 → 分享 → 加入主畫面；Android 用 Chrome 開啟 → 選單 → 安裝應用程式／加到主畫面，就會變成一個可以直接點的圖示。
+    </div>
+
+    <div class="countdown" id="countdown">
+      <div>
+        <div class="label">距離下一個重要日子</div>
+        <div class="event-name" id="cd-name">—</div>
+      </div>
+      <div class="num" id="cd-num">—<span>天</span></div>
+    </div>
+  </div>
+
+  <section id="timeline-section">
+    <div class="section-head">
+      <h2>重要時間軸</h2>
+      <span class="count">2026.07 – 2026.09</span>
+    </div>
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>選課怎麼選</h2></div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>操作路徑與流程</h3>
+        <ol class="steps">
+          <li>學校首頁 → I-TOUCH → 選課系統 → 以 CYCU Myself 帳號登入。</li>
+          <li>先用「預排功課表」規劃，確認時段沒有衝堂（7/15 起已開放）。</li>
+          <li>正式選課分兩軌開放：「一般 / 教育學程」與「通識 / 體育 / 軍訓」，兩邊時間不同，兩軌都要記得選。</li>
+          <li>選課結果不滿意可在「加退選」階段調整，通識加退選採先選先上。</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>容易忽略的規則</h3>
+        <ul class="note-list">
+          <li>通識別只搶熱門課，天、人、物、我四學類要平均分配，不要卡在同一類。</li>
+          <li>部分通識基礎必修需擇一：「宗教信仰與靈性關懷」／「生命意義與價值判斷」擇一；「公民素養與社會關懷」擇一；「歷史思維與多元文化」擇一。</li>
+          <li>「宗教哲學」與「人生哲學」不可同學期選修。</li>
+          <li>每學期至多選 2 門通識延伸選修課程。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>通識課程學分結構</h2></div>
+    <div class="card">
+      <table class="gen-ed">
+        <thead>
+          <tr><th>類別</th><th>規則</th><th class="credits">學分</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>通識基礎必修</td><td>天、人、物、我四學類皆須修習指定必修課</td><td class="credits">16</td></tr>
+          <tr><td>通識延伸選修</td><td>天、人、物、我每學類至少 2 學分，其餘 4 學分自由選</td><td class="credits">12</td></tr>
+          <tr><td>合計（畢業門檻）</td><td>110 學年度後入學適用</td><td class="credits">28</td></tr>
+        </tbody>
+      </table>
+      <p style="margin:12px 0 0;font-size:0.82rem;color:var(--muted)">四學年分開修，大一不用一次修完——但建議每學期至少接觸 1–2 個學類，避免大三、大四才擠在一起搶課。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>系上課程參考</h2></div>
+    <div class="card">
+      <p style="margin:0 0 4px;font-size:0.89rem;color:var(--muted)">依系上修業辦法列出之課程範圍（橫跨四學年，非全部落在大一）：</p>
+      <div class="chip-row">
+        <span class="chip">微積分</span>
+        <span class="chip">普通物理</span>
+        <span class="chip">計算機概論</span>
+        <span class="chip">線性代數</span>
+        <span class="chip">資料結構</span>
+        <span class="chip">電路學</span>
+        <span class="chip">機率與統計</span>
+        <span class="chip">工程數學</span>
+        <span class="chip">演算法</span>
+        <span class="chip">人工智慧</span>
+        <span class="chip">機器學習</span>
+        <span class="chip">資料探勘</span>
+        <span class="chip">深度學習</span>
+        <span class="chip">應用統計</span>
+        <span class="chip">社群網路分析</span>
+        <span class="chip">量子計算與通訊導論</span>
+      </div>
+      <p style="margin:14px 0 0;font-size:0.82rem;color:var(--muted)">確切的「大一上必修課表」請以開課查詢系統或系辦公告為準（見頁尾連結）。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>宿舍搬遷</h2></div>
+    <div class="card">
+      <dl class="dorm-grid">
+        <div><dt>電資學院預定入住日</dt><dd>9/12（六）<span class="badge tentative">待確認</span></dd></div>
+        <div><dt>住宿保證金</dt><dd>NT$ 1,500</dd></div>
+        <div><dt>退還方式</dt><dd>住滿一學年，下學期結束後無息退還</dd></div>
+        <div><dt>床位確認</dt><dd>以開宿日報到現場為主</dd></div>
+      </dl>
+      <p style="margin:14px 0 4px;font-size:0.82rem;color:var(--muted)">宿舍服務電話：</p>
+      <div class="chip-row">
+        <span class="chip">熱誠男宿 03-2658803</span>
+        <span class="chip">熱誠女宿 03-2658703</span>
+        <span class="chip">信實男宿 03-2657606</span>
+        <span class="chip">信實女宿 03-2657601</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>已安排的提醒</h2></div>
+    <div class="reminder-panel">
+      <p>這個頁面本身是靜態資訊卡，分頁關閉後不會主動推播。真正會提醒你的，是已經在 Claude 對話中排好的訊息——到了時間會回到對話並提醒你，依你的裝置通知設定推播到手機／桌面。</p>
+      <ul class="reminder-list">
+        <li><span>選課日程再確認 + 開始規劃通識課</span><time>8/1（六）09:00</time></li>
+        <li><span>新生學涯體驗營前提醒</span><time>8/6（四）09:00</time></li>
+        <li><span>新生學涯體驗營當天</span><time>8/9（日）07:30</time></li>
+        <li><span>開學前確認課表與選課結果</span><time>9/1（二）09:00</time></li>
+        <li><span>搬宿舍前 3 天，開始準備</span><time>9/9（三）09:00</time></li>
+        <li><span>搬宿舍前一天，最後確認</span><time>9/11（五）18:00</time></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="sources">
+    <h2>資料來源</h2>
+    <ol>
+      <li>115 學年度中文行事曆・中原大學教務處 — <a href="https://acadm.cycu.edu.tw/115%E5%AD%B8%E5%B9%B4%E5%BA%A6%E4%B8%AD%E6%96%87%E8%A1%8C%E4%BA%8B%E6%9B%86/" target="_blank" rel="noopener">acadm.cycu.edu.tw</a></li>
+      <li>115-1 學期選課報報（7/15 開放預排功課表）・電機資訊學院學士班 — <a href="https://bseecs.cycu.edu.tw/" target="_blank" rel="noopener">bseecs.cycu.edu.tw</a></li>
+      <li>通識課程選課須知（大學部）・通識教育中心 — <a href="https://cge.cycu.edu.tw/" target="_blank" rel="noopener">cge.cycu.edu.tw</a></li>
+      <li>智慧運算與大數據學士班修業辦法・教務處 — <a href="https://acadm.cycu.edu.tw/wp-content/uploads/111%E6%99%BA%E6%85%A7%E9%81%8B%E7%AE%97%E8%88%87%E5%A4%A7%E6%95%B8%E6%93%9A%E5%AD%B8%E5%A3%AB%E7%8F%AD.pdf" target="_blank" rel="noopener">修業辦法 PDF</a></li>
+      <li>智慧運算與大數據學士班系網 — <a href="https://icbd.cycu.edu.tw/" target="_blank" rel="noopener">icbd.cycu.edu.tw</a></li>
+      <li>學生事務處住宿服務組 — <a href="https://oosa.cycu.edu.tw/" target="_blank" rel="noopener">oosa.cycu.edu.tw</a></li>
+      <li>問鼎中原（新生資訊）— <a href="https://icare.cycu.edu.tw/news/" target="_blank" rel="noopener">icare.cycu.edu.tw/news</a></li>
+      <li>中原大學公告系統 — <a href="https://ann.cycu.edu.tw/aa/" target="_blank" rel="noopener">ann.cycu.edu.tw/aa</a></li>
+    </ol>
+  </div>
+
+  <footer class="tag">為中原大學電資學院智慧運算與大數據學士班新生整理・非校方官方頁面</footer>
+</div>
+
+<script>
+(function () {
+  var events = [
+    { date: "2026-07-15", title: "預排功課表開放", desc: "I-TOUCH 選課系統可開始規劃課表，尚未正式選課。", status: "confirmed" },
+    { date: "2026-08-09", title: "新生學涯體驗營（新生訓練）", desc: "來源：115 學年度中文行事曆。", status: "confirmed" },
+    { date: "2026-08-15", title: "選課第一、二階段（預估區間）", desc: "「一般 / 教育學程」與「通識 / 體育 / 軍訓」分流開放，確切起訖日待最新選課報報公告。", status: "tentative" },
+    { date: "2026-09-01", title: "開學（預估）", desc: "確切開學日待 115 學年度行事曆完整內容確認。", status: "tentative" },
+    { date: "2026-09-12", title: "電資學院新生宿舍入住", desc: "搜尋所得初步資訊，年份與確切梯次請向住宿服務組核對。", status: "tentative" },
+    { date: "2026-09-15", title: "加退選期間（預估）", desc: "開學後約兩週內，確切日期待公告。", status: "tentative" }
+  ];
+
+  function fmt(d) {
+    var days = ["日","一","二","三","四","五","六"];
+    return (d.getMonth() + 1) + "/" + d.getDate() + "（" + days[d.getDay()] + "）";
+  }
+
+  var tl = document.getElementById("timeline");
+  var now = new Date();
+  now.setHours(0,0,0,0);
+
+  events.forEach(function (ev) {
+    var d = new Date(ev.date + "T00:00:00");
+    var diff = Math.round((d - now) / 86400000);
+    var status = ev.status;
+    if (status === "confirmed" && diff >= 0 && diff <= 3) status = "soon";
+
+    var item = document.createElement("div");
+    item.className = "tl-item";
+    item.setAttribute("data-status", status);
+
+    var badge = ev.status === "confirmed"
+      ? '<span class="badge confirmed">已確認</span>'
+      : '<span class="badge tentative">待確認</span>';
+
+    item.innerHTML =
+      '<div class="tl-date">' + fmt(d) + '</div>' +
+      '<div class="tl-title">' + ev.title + badge + '</div>' +
+      '<div class="tl-desc">' + ev.desc + '</div>';
+    tl.appendChild(item);
+  });
+
+  var upcoming = events
+    .map(function (ev) { return { ev: ev, d: new Date(ev.date + "T00:00:00") }; })
+    .filter(function (x) { return x.d >= now; })
+    .sort(function (a, b) { return a.d - b.d; })[0];
+
+  if (upcoming) {
+    var diff = Math.round((upcoming.d - now) / 86400000);
+    document.getElementById("cd-name").textContent = upcoming.ev.title;
+    document.getElementById("cd-num").innerHTML = (diff === 0 ? "今天" : diff) + (diff === 0 ? "" : "<span>天</span>");
+  } else {
+    document.getElementById("countdown").style.display = "none";
+  }
+})();
+</script>
+</body>
+</html>
