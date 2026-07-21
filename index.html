@@ -371,8 +371,29 @@
   .field-list > li { padding: 12px 0; border-top: 1px solid var(--line); }
   .field-list > li:first-child { padding-top: 0; border-top: none; }
   .field-title { font-weight: 600; font-size: 0.94rem; display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+  .field-title a { color: var(--accent); text-decoration: none; }
+  .field-title a:hover { text-decoration: underline; }
   .field-value { margin-top: 3px; font-size: 0.88rem; font-weight: 600; color: var(--accent); }
   .field-meta { margin-top: 3px; font-size: 0.84rem; color: var(--muted); }
+  .field-meta a { color: inherit; text-decoration-color: var(--line-strong); }
+
+  .link-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; }
+  .link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .link-btn:hover { border-color: var(--accent); }
+  .link-btn::after { content: "↗"; font-size: 0.75em; opacity: 0.8; }
 
   .chip-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
   .chip {
@@ -472,12 +493,16 @@
 
   <section id="course-selection">
     <div class="section-head"><h2>選課全攻略</h2></div>
+    <div class="link-row">
+      <a class="link-btn" href="https://myself.cycu.edu.tw/#/login" target="_blank" rel="noopener">選課系統 CYCU Myself</a>
+      <a class="link-btn" href="https://itouch.cycu.edu.tw/active_system/CourseQuerySystem/" target="_blank" rel="noopener">開課查詢系統</a>
+    </div>
     <div class="grid-2">
       <div class="card">
         <h3>兩個系統要分清楚</h3>
         <ul class="note-list">
-          <li><strong>開課查詢系統</strong>（itouch.cycu.edu.tw）：查課表、上課時間節次，新學年約 7 月初才會更新。</li>
-          <li><strong>選課系統 CYCU Myself</strong>（myself.cycu.edu.tw）：真正拿來選課、追蹤課程、搶課的地方。</li>
+          <li><strong>開課查詢系統</strong>（<a href="https://itouch.cycu.edu.tw/active_system/CourseQuerySystem/" target="_blank" rel="noopener">itouch.cycu.edu.tw</a>）：查課表、上課時間節次，新學年約 7 月初才會更新。</li>
+          <li><strong>選課系統 CYCU Myself</strong>（<a href="https://myself.cycu.edu.tw/#/login" target="_blank" rel="noopener">myself.cycu.edu.tw</a>）：真正拿來選課、追蹤課程、搶課的地方。</li>
           <li>大一必修（系必修）系統會自動幫你排好，不用自己搶；英文課教室 / 授課老師要等 itouch 個人課表出來才準，開課查詢系統上顯示的不一定對。</li>
         </ul>
       </div>
@@ -516,7 +541,7 @@
         <li>
           <div class="field-title">抵免申請</div>
           <div class="field-value">8/1 ~ 9/16</div>
-          <div class="field-meta">已核准抵免的科目要自己上網退選，不會自動退。路徑：中原首頁 → I-TOUCH → 使用者登入 → 學業 → 選課資訊 → 抵免申請系統。</div>
+          <div class="field-meta">已核准抵免的科目要自己上網退選，不會自動退。路徑：<a href="https://itouch.cycu.edu.tw/" target="_blank" rel="noopener">I-TOUCH</a> → 使用者登入 → 學業 → 選課資訊 → 抵免申請系統。</div>
         </li>
       </ul>
     </div>
@@ -599,6 +624,10 @@
 
   <section id="dorm">
     <div class="section-head"><h2>宿舍搬遷</h2></div>
+    <div class="link-row">
+      <a class="link-btn" href="https://fm.cycu.edu.tw/" target="_blank" rel="noopener">新生一網通（住宿申請）</a>
+      <a class="link-btn" href="https://oosa.cycu.edu.tw/" target="_blank" rel="noopener">住宿服務組</a>
+    </div>
     <div class="card">
       <dl class="dorm-grid">
         <div><dt>電資學院入住日</dt><dd>9/6（日）<span class="badge confirmed">已確認</span></dd></div>
@@ -627,28 +656,36 @@
         <div><dt>新生訓練＋社博</dt><dd>9/7 ~ 9/9</dd></div>
         <div><dt>開學日</dt><dd>9/14（一）</dd></div>
       </dl>
-      <p style="margin:14px 0 0;font-size:0.85rem;color:var(--muted)">社團博覽會是接觸各社團最快的方式，也是新生第一場大型活動。學生會（吉祥物「粗米」）另外辦有周邊店家「聯合特約」優惠，出示學生證即可折扣，優惠地圖可上學生會 IG @cycusa 查詢。</p>
+      <p style="margin:14px 0 0;font-size:0.85rem;color:var(--muted)">社團博覽會是接觸各社團最快的方式，也是新生第一場大型活動。學生會（吉祥物「粗米」）另外辦有周邊店家「聯合特約」優惠，出示學生證即可折扣。</p>
+      <div class="link-row">
+        <a class="link-btn" href="https://www.instagram.com/cycusa/" target="_blank" rel="noopener">學生會 IG</a>
+        <a class="link-btn" href="https://www.google.com/maps/d/edit?mid=1iehphE5D5c9bWik_0Ku1GuRqIwox8DE&usp=sharing" target="_blank" rel="noopener">特約商店地圖</a>
+      </div>
       <p style="margin:10px 0 0;font-size:0.85rem;color:var(--muted)">系上「迎新宿營」是學長姐自辦的迎新活動，非強制參加、非校方或學生會主辦，各系報名資訊會公告在系學會 IG，想參加可自行留意。</p>
     </div>
   </section>
 
   <section id="enrollment">
     <div class="section-head"><h2>入學手續與繳費</h2></div>
+    <div class="link-row">
+      <a class="link-btn" href="https://fm.cycu.edu.tw/" target="_blank" rel="noopener">新生一網通</a>
+      <a class="link-btn" href="https://itouch.cycu.edu.tw/" target="_blank" rel="noopener">I-TOUCH（繳費／學貸／抵免）</a>
+    </div>
     <div class="card">
       <ul class="field-list">
         <li>
-          <div class="field-title">新生一網通（基本資料填寫）</div>
+          <div class="field-title"><a href="https://fm.cycu.edu.tw/" target="_blank" rel="noopener">新生一網通（基本資料填寫）</a></div>
           <div class="field-meta">及早完成，確認每項狀態顯示「已完成」</div>
         </li>
         <li>
-          <div class="field-title">學雜費繳費單下載＋繳費 <span class="badge key">重要</span></div>
+          <div class="field-title"><a href="https://itouch.cycu.edu.tw/" target="_blank" rel="noopener">學雜費繳費單下載＋繳費</a> <span class="badge key">重要</span></div>
           <div class="field-value">115/8/1～8/31</div>
-          <div class="field-meta">第一梯宿舍者 8/1 起；第二梯 8/21 15:00 起下載</div>
+          <div class="field-meta">第一梯宿舍者 8/1 起；第二梯 8/21 15:00 起下載，路徑：I-TOUCH → 個人資訊 → 查詢應繳學雜費</div>
         </li>
         <li>
-          <div class="field-title">就學貸款申請</div>
+          <div class="field-title"><a href="https://itouch.cycu.edu.tw/" target="_blank" rel="noopener">就學貸款申請</a></div>
           <div class="field-value">8/3～9/9</div>
-          <div class="field-meta">第一次辦須臨櫃對保，先去銀行別只在線上填</div>
+          <div class="field-meta">第一次辦須臨櫃對保，先去銀行別只在線上填；申請表在 I-TOUCH 上填寫</div>
         </li>
         <li>
           <div class="field-title">學生證照片／英文姓名上傳 <span class="badge key">重要</span></div>
@@ -669,17 +706,17 @@
     <div class="card">
       <ul class="field-list">
         <li>
-          <div class="field-title">Mail2000 校信箱</div>
+          <div class="field-title"><a href="https://mail.cycu.edu.tw" target="_blank" rel="noopener">Mail2000 校信箱</a></div>
           <div class="field-value">s + 學號@cycu.edu.tw</div>
-          <div class="field-meta">先到 newpass 頁面設密碼才能登入</div>
+          <div class="field-meta">先到 <a href="https://mail.cycu.edu.tw/cgi-bin/newpass" target="_blank" rel="noopener">newpass 頁面</a>設密碼才能登入</div>
         </li>
         <li>
-          <div class="field-title">Microsoft（Teams／OneDrive）</div>
+          <div class="field-title"><a href="https://www.office.com" target="_blank" rel="noopener">Microsoft（Teams／OneDrive）</a></div>
           <div class="field-value">學號@o365st.cycu.edu.tw</div>
           <div class="field-meta">密碼同 I-TOUCH</div>
         </li>
         <li>
-          <div class="field-title">CYCU Myself／I-TOUCH</div>
+          <div class="field-title"><a href="https://itouch.cycu.edu.tw/" target="_blank" rel="noopener">CYCU Myself／I-TOUCH</a></div>
           <div class="field-value">學號</div>
           <div class="field-meta">選課、成績、行政作業的主帳號</div>
         </li>
